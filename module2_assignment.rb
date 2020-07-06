@@ -1,27 +1,25 @@
-#Implement all parts of this assignment within (this) module2_assignment2.rb file
+class LineAnalyzer # :nodoc:
+  attr_reader :highest_wf_count, :highest_wf_words, :content, :line_number
 
-#Implement a class called LineAnalyzer.
-class LineAnalyzer
-  #Implement the following read-only attributes in the LineAnalyzer class. 
-  #* highest_wf_count - a number with maximum number of occurrences for a single word (calculated)
-  #* highest_wf_words - an array of words with the maximum number of occurrences (calculated)
-  #* content          - the string analyzed (provided)
-  #* line_number      - the line number analyzed (provided)
+  # initialize content and line_number
+  # and call the calculate_word_frequecy method.
+  def initialize(content, line_number)
+    @content = content
+    @line_number = line_number
+    calculate_word_frequency(content)
+  end
 
-  #Add the following methods in the LineAnalyzer class.
-  #* initialize() - taking a line of text (content) and a line number
-  #* calculate_word_frequency() - calculates result
-
-  #Implement the initialize() method to:
-  #* take in a line of text and line number
-  #* initialize the content and line_number attributes
-  #* call the calculate_word_frequency() method.
-
-  #Implement the calculate_word_frequency() method to:
-  #* calculate the maximum number of times a single word appears within
-  #  provided content and store that in the highest_wf_count attribute.
-  #* identify the words that were used the maximum number of times and
-  #  store that in the highest_wf_words attribute.
+  # calculates the hash of number of times a word appears in #{content}
+  # and also determine those words (with the highest word count).
+  def calculate_word_frequency(content)
+    word_count = Hash.new(0)  # hash
+    # @highest_wf_words = []  # array
+    content.split.each do |word|
+      word_count[word] +=  1
+    end
+    @highest_wf_count = word_count.values.max
+    @highest_wf_words = word_count.select { |key, value| value == @highest_wf_count }.keys
+  end
 end
 
 #  Implement a class called Solution. 
