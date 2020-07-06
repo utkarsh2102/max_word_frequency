@@ -2,7 +2,7 @@ class LineAnalyzer # :nodoc:
   attr_reader :highest_wf_count, :highest_wf_words, :content, :line_number
 
   # initialize content and line_number
-  # and call the calculate_word_frequecy method.
+  # and call the calculate_word_frequency method.
   def initialize(content, line_number)
     @content = content
     @line_number = line_number
@@ -15,7 +15,7 @@ class LineAnalyzer # :nodoc:
     word_count = Hash.new(0)  # hash
     # @highest_wf_words = []  # array
     content.split.each do |word|
-      word_count[word] +=  1
+      word_count[word.downcase] +=  1
     end
     @highest_wf_count = word_count.values.max
     @highest_wf_words = word_count.select { |key, value| value == @highest_wf_count }.keys
