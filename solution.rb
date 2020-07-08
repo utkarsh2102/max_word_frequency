@@ -1,4 +1,6 @@
-require_relative "module2_assignment"
+# frozen_string_literal: true
+
+require_relative 'module2_assignment'
 
 # This script provides a sample execution of the Solution class
 # that is consistent with what the rspec evaluation will perform.
@@ -6,7 +8,7 @@ require_relative "module2_assignment"
 # the rspec tests.
 
 solution = Solution.new
-#expect errors until you implement these methods
+# expect errors until you implement these methods
 solution.analyze_file
 solution.calculate_line_with_highest_frequency
 solution.print_highest_word_frequency_across_lines
