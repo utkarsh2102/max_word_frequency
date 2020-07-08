@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class LineAnalyzer # :nodoc:
   attr_reader :highest_wf_count, :highest_wf_words, :content, :line_number
 
@@ -15,13 +17,13 @@ class LineAnalyzer # :nodoc:
   # determine those words (with the highest
   # word count).
   def calculate_word_frequency(content)
-    word_count = Hash.new(0)  # hash
+    word_count = Hash.new(0) # hash
     # @highest_wf_words = []  # array
     content.split.each do |word|
-      word_count[word.downcase] +=  1
+      word_count[word.downcase] += 1
     end
     @highest_wf_count = word_count.values.max
-    @highest_wf_words = word_count.select { |key, value| value == @highest_wf_count }.keys
+    @highest_wf_words = word_count.select { |_key, value| value == @highest_wf_count }.keys
   end
 end
 
@@ -47,9 +49,7 @@ class Solution # :nodoc:
   # calculates the number of highest frequency
   # word and stores that word itself in an array.
   def calculate_line_with_highest_frequency
-    @highest_count_across_lines = @analyzers.max_by do |element|
-      element.highest_wf_count
-    end.highest_wf_count
+    @highest_count_across_lines = @analyzers.max_by(&:highest_wf_count).highest_wf_count
     @highest_count_words_across_lines = []
     @analyzers.each do |word|
       @highest_count_words_across_lines << word if word.highest_wf_count == @highest_count_across_lines
@@ -59,9 +59,11 @@ class Solution # :nodoc:
   # prints the highest frequency word and their
   # line numbers in the specified format.
   def print_highest_word_frequency_across_lines
-    puts "The following words have the highest word frequency per line:"
+    puts 'The following words have the highest word frequency per line:'
     @analyzers.each do |word|
-      puts "#{word.highest_wf_words} (appears in line #{word.line_number})" if word.highest_wf_count == @highest_count_across_lines
+      if word.highest_wf_count == @highest_count_across_lines
+        puts "#{word.highest_wf_words} (appears in line #{word.line_number})"
+      end
     end
   end
 end
